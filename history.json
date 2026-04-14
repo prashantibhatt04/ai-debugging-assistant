@@ -1,0 +1,366 @@
+[
+  {
+    "code": "print(x)",
+    "error": "NameError: name 'x' is not defined",
+    "result": {
+      "language": "Python",
+      "primary_issue": {
+        "error_explanation": "The variable 'x' is used before it has been defined or assigned any value.",
+        "root_cause": "'x' has not been declared or initialized anywhere in the code before the print statement.",
+        "fix": "Define and assign a value to 'x' before using it in print, e.g. x = 10",
+        "severity": "high"
+      },
+      "additional_issues": [
+        {
+          "issue": "Lack of context or initialization",
+          "explanation": "Using variables without initialization can cause runtime errors and makes the code unclear.",
+          "fix": "Always initialize variables with meaningful values before using them.",
+          "severity": "medium"
+        }
+      ],
+      "confidence_score": "100%"
+    },
+    "timestamp": "2026-04-08T16:48:02.014777"
+  },
+  {
+    "code": "print(x)",
+    "error": "NameError: name 'x' is not defined",
+    "result": {
+      "language": "Python",
+      "primary_issue": {
+        "error_explanation": "The variable 'x' is being used before it has been defined or assigned any value.",
+        "root_cause": "'x' has not been declared or initialized anywhere in the code before the print statement.",
+        "fix": "Define or assign a value to 'x' before printing it, e.g., x = 10",
+        "severity": "high"
+      },
+      "additional_issues": [
+        {
+          "issue": "Code snippet is minimal and lacks context",
+          "explanation": "The code only shows a print statement without variable initialization or program context, which makes it prone to runtime errors.",
+          "fix": "Provide a full example with variable initialization and context to avoid such errors.",
+          "severity": "medium"
+        }
+      ],
+      "confidence_score": "100%"
+    },
+    "timestamp": "2026-04-08T16:48:09.680980"
+  },
+  {
+    "code": "print(x)",
+    "error": "NameError: name 'x' is not defined",
+    "result": {
+      "language": "Python",
+      "primary_issue": {
+        "error_explanation": "The variable 'x' is used before it has been defined or assigned any value.",
+        "root_cause": "'x' was never initialized or declared prior to the print statement.",
+        "fix": "Define and assign a value to 'x' before using it, e.g., x = 10",
+        "severity": "high"
+      },
+      "additional_issues": [
+        {
+          "issue": "Lack of context or initialization for variables",
+          "explanation": "The code snippet does not show any prior definition or initialization of variables, which can lead to runtime errors.",
+          "fix": "Ensure all variables are properly defined and initialized before use.",
+          "severity": "medium"
+        }
+      ],
+      "confidence_score": "100%"
+    },
+    "timestamp": "2026-04-08T16:56:49.375994"
+  },
+  {
+    "code": "print(x)",
+    "error": "NameError: name 'x' is not defined",
+    "result": {
+      "language": "Python",
+      "primary_issue": {
+        "error_explanation": "The variable 'x' is being used before it has been defined or assigned any value.",
+        "root_cause": "The code attempts to print a variable that has not been initialized in the current scope.",
+        "fix": "Define and assign a value to the variable 'x' before the print statement, e.g., x = 10",
+        "severity": "high"
+      },
+      "additional_issues": [
+        {
+          "issue": "No context or initialization of 'x'",
+          "explanation": "Without knowing what 'x' should represent, the code is incomplete and will always fail at runtime.",
+          "fix": "Initialize 'x' appropriately depending on the intended use case before accessing it.",
+          "severity": "medium"
+        }
+      ],
+      "confidence_score": "95%"
+    },
+    "timestamp": "2026-04-08T16:56:49.568872"
+  },
+  {
+    "code": "print(x)",
+    "error": "NameError: name 'x' is not defined",
+    "result": {
+      "language": "Python",
+      "primary_issue": {
+        "error_explanation": "The variable 'x' is being used before it has been defined or assigned any value.",
+        "root_cause": "'x' is not declared or initialized anywhere in the code prior to the print statement.",
+        "fix": "Define or assign a value to 'x' before using it in print, e.g., x = 10",
+        "severity": "high"
+      },
+      "additional_issues": [
+        {
+          "issue": "Code snippet lacks context or initialization",
+          "explanation": "The snippet only contains a print statement without any variable declaration, which may confuse readers or cause runtime errors.",
+          "fix": "Provide complete code including variable definitions to ensure clarity and correctness.",
+          "severity": "medium"
+        }
+      ],
+      "confidence_score": "100%"
+    },
+    "timestamp": "2026-04-08T16:56:49.579816"
+  },
+  {
+    "code": "print(x)",
+    "error": "NameError: name 'x' is not defined",
+    "result": {
+      "language": "Python",
+      "primary_issue": {
+        "error_explanation": "The variable 'x' is being used before it has been defined or assigned any value.",
+        "root_cause": "'x' is referenced in the print statement without any prior initialization.",
+        "fix": "Define or assign a value to 'x' before the print statement, for example: x = 10",
+        "severity": "high"
+      },
+      "additional_issues": [
+        {
+          "issue": "Use of print statement without context",
+          "explanation": "Printing an undefined variable may indicate a logical error or incomplete code.",
+          "fix": "Ensure variables are properly declared and initialized prior to use in print statements.",
+          "severity": "medium"
+        }
+      ],
+      "confidence_score": "100%"
+    },
+    "timestamp": "2026-04-08T16:56:49.718899"
+  },
+  {
+    "code": "print(x)",
+    "error": "NameError: name 'x' is not defined",
+    "result": {
+      "language": "Python",
+      "primary_issue": {
+        "error_explanation": "The variable 'x' is being used before it has been assigned a value.",
+        "root_cause": "'x' has not been defined or initialized anywhere in the code before the print statement.",
+        "fix": "Define and assign a value to 'x' before using it, for example: x = 10",
+        "severity": "high"
+      },
+      "additional_issues": [
+        {
+          "issue": "No context or value for 'x'",
+          "explanation": "Without initialization, it is unclear what 'x' is meant to represent or contain.",
+          "fix": "Ensure 'x' is not only defined but also initialized to a meaningful value based on program context.",
+          "severity": "medium"
+        }
+      ],
+      "confidence_score": "95%"
+    },
+    "timestamp": "2026-04-08T18:49:52.886291"
+  },
+  {
+    "code": "print(x)",
+    "error": "NameError: name 'x' is not defined",
+    "result": {
+      "language": "Python",
+      "primary_issue": {
+        "error_explanation": "The variable 'x' is used before it has been assigned any value.",
+        "root_cause": "'x' has not been defined or initialized prior to the print statement.",
+        "fix": "Define and assign a value to 'x' before using it, e.g., 'x = 10'.",
+        "severity": "high"
+      },
+      "additional_issues": [
+        {
+          "issue": "No context or initialization for 'x'.",
+          "explanation": "Without initializing 'x', the code cannot run as expected.",
+          "fix": "Initialize 'x' with an appropriate value based on program logic.",
+          "severity": "medium"
+        }
+      ],
+      "confidence_score": "100%"
+    },
+    "timestamp": "2026-04-08T20:31:56.634750"
+  },
+  {
+    "code": "print(x)",
+    "error": "NameError: name 'x' is not defined",
+    "result": {
+      "language": "Python",
+      "primary_issue": {
+        "error_explanation": "The variable 'x' is referenced before it has been assigned any value or defined in the current scope.",
+        "root_cause": "There is no prior assignment or declaration of 'x' before the print statement.",
+        "fix": "Define or assign a value to 'x' before using it, for example: x = 5",
+        "severity": "high"
+      },
+      "additional_issues": [
+        {
+          "issue": "Lack of context or initialization",
+          "explanation": "Without defining 'x', the code lacks context and cannot perform meaningful operations.",
+          "fix": "Initialize variables before use to ensure code clarity and prevent runtime errors.",
+          "severity": "medium"
+        }
+      ],
+      "confidence_score": "100%"
+    },
+    "timestamp": "2026-04-08T21:25:24.921423"
+  },
+  {
+    "code": "print(x)",
+    "error": "NameError: name 'x' is not defined",
+    "result": {
+      "language": "Python",
+      "primary_issue": {
+        "error_explanation": "The variable 'x' is being used before it has been defined or assigned a value.",
+        "root_cause": "There is no prior declaration or assignment to the variable 'x' in the current scope before the print statement.",
+        "fix": "Define and assign a value to 'x' before using it in the print statement, e.g., x = 10",
+        "severity": "high"
+      },
+      "additional_issues": [
+        {
+          "issue": "No context or initialization provided for variable usage",
+          "explanation": "The code snippet uses 'x' without any surrounding code or comments indicating its intended value or type, which can cause confusion or runtime errors.",
+          "fix": "Ensure that variables are properly initialized and documented before use to improve code clarity and maintainability.",
+          "severity": "medium"
+        }
+      ],
+      "confidence_score": "95%"
+    },
+    "timestamp": "2026-04-08T21:30:40.383719"
+  },
+  {
+    "code": "print(x)",
+    "error": "NameError: name 'x' is not defined",
+    "result": {
+      "language": "Python",
+      "primary_issue": {
+        "error_explanation": "The variable 'x' is used before it is defined or assigned any value.",
+        "root_cause": "'x' has not been declared or initialized anywhere in the accessible scope before calling print(x).",
+        "fix": "Define and assign a value to 'x' before using it, e.g. x = 10",
+        "severity": "high"
+      },
+      "additional_issues": [
+        {
+          "issue": "No variable initialization",
+          "explanation": "Using variables without initialization can lead to unexpected crashes or errors.",
+          "fix": "Always initialize variables before usage.",
+          "severity": "medium"
+        }
+      ],
+      "confidence_score": "100%"
+    },
+    "timestamp": "2026-04-08T21:31:02.924501"
+  },
+  {
+    "code": "print(x)",
+    "error": "NameError: name 'x' is not defined",
+    "result": {
+      "language": "Python",
+      "primary_issue": {
+        "error_explanation": "The code attempts to print the variable 'x', but 'x' has not been defined or assigned any value before this statement, causing a NameError.",
+        "root_cause": "The variable 'x' is either missing initialization or is out of scope at the point where print(x) is called.",
+        "fix": "Ensure that 'x' is defined and assigned a value before the print statement. For example, add a line like 'x = some_value' before 'print(x)'.",
+        "severity": "high"
+      },
+      "additional_issues": [],
+      "confidence_score": "100%"
+    },
+    "timestamp": "2026-04-08T21:38:46.717742"
+  },
+  {
+    "code": "print(x)",
+    "error": "NameError: name 'x' is not defined",
+    "result": {
+      "language": "Python",
+      "primary_issue": {
+        "error_explanation": "The code attempts to print the variable 'x', but 'x' has not been defined or initialized anywhere before this statement, causing a NameError.",
+        "root_cause": "'x' is referenced before assignment or declaration in the code.",
+        "fix": "Define and assign a value to 'x' before the print statement, for example: x = 10",
+        "severity": "medium"
+      },
+      "additional_issues": [],
+      "confidence_score": "100%"
+    },
+    "timestamp": "2026-04-10T14:59:21.587852"
+  },
+  {
+    "code": "print(x)",
+    "error": "NameError: name 'x' is not defined",
+    "result": {
+      "language": "Python",
+      "primary_issue": {
+        "error_explanation": "The code attempts to print the variable 'x' which has not been defined or initialized anywhere before this statement, causing a NameError.",
+        "root_cause": "'x' is used without being declared or assigned any value prior to the print statement.",
+        "fix": "Define and assign a value to 'x' before the print statement, for example: x = 10",
+        "severity": "high"
+      },
+      "additional_issues": [],
+      "confidence_score": "100%"
+    },
+    "timestamp": "2026-04-10T14:59:54.134033"
+  },
+  {
+    "code": "total = price + tax\nprint(total)",
+    "error": "NameError: name 'tax' is not defined",
+    "result": {
+      "language": "Python",
+      "primary_issue": {
+        "error_explanation": "The variable 'tax' is used in the expression 'total = price + tax' but has not been defined or initialized anywhere before this line, causing a NameError.",
+        "root_cause": "'tax' was never declared or assigned a value prior to its usage.",
+        "fix": "Define and assign a value to 'tax' before using it in the calculation, for example: tax = 5. Then ensure 'price' is also defined before this line.",
+        "severity": "high"
+      },
+      "additional_issues": [
+        {
+          "issue": "Variable 'price' may also be undefined",
+          "explanation": "The code uses 'price' in the addition but there is no indication that 'price' is defined anywhere, which could cause a similar NameError.",
+          "fix": "Ensure 'price' is defined and assigned a value before this line, e.g., price = 100.",
+          "severity": "high"
+        },
+        {
+          "issue": "No context or input validation",
+          "explanation": "The code snippet does not show how 'price' and 'tax' are obtained or validated, which could lead to runtime errors if they are not numeric.",
+          "fix": "Add input validation or default assignments to ensure both variables are numeric before addition.",
+          "severity": "medium"
+        }
+      ],
+      "confidence_score": "95%"
+    },
+    "timestamp": "2026-04-10T15:00:09.799403"
+  },
+  {
+    "code": "print(x)",
+    "error": "NameError: name 'x' is not defined",
+    "fingerprint": "359e062e6639b237fa465475b01870e2",
+    "result": {
+      "language": "Python",
+      "primary_issue": {
+        "error_explanation": "The code attempts to print the variable 'x', but 'x' has not been defined or assigned any value before this statement, causing a NameError.",
+        "root_cause": "'x' is used without prior declaration or initialization in the code.",
+        "fix": "Define and assign a value to 'x' before the print statement, for example: x = 10",
+        "severity": "high"
+      },
+      "additional_issues": [],
+      "confidence_score": "100%"
+    },
+    "timestamp": "2026-04-13T23:38:13.214422"
+  },
+  {
+    "code": "print(x)",
+    "error": "NameError: name 'x' is not defined",
+    "fingerprint": "359e062e6639b237fa465475b01870e2",
+    "result": {
+      "language": "Python",
+      "primary_issue": {
+        "error_explanation": "The code attempts to print the variable 'x' which has not been defined or initialized anywhere prior to the print statement.",
+        "root_cause": "'x' is used without any prior declaration or assignment in the code, leading to a NameError at runtime.",
+        "fix": "Define and assign a value to 'x' before the print statement, for example: x = 10",
+        "severity": "high"
+      },
+      "additional_issues": [],
+      "confidence_score": "100%"
+    },
+    "timestamp": "2026-04-13T23:38:24.548026"
+  }
+]
