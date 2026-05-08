@@ -129,6 +129,26 @@ http://127.0.0.1:8000/docs
 
 ---
 
+## 🧪 Test Suite
+
+Automated API test suite built with Pytest and HTTPX, covering all endpoints 
+with OpenAI responses mocked for fast, cost-free test runs.
+
+**Run the tests:**
+
+```bash
+pip install pytest httpx pytest-asyncio pytest-mock pytest-dotenv
+pytest tests/ -v
+```
+
+**Results:**
+
+![Pytest terminal results](docs/screenshots/pytest-terminal-results.png)
+
+![HTML test report](docs/screenshots/pytest-html-report.png)
+
+---
+
 ## 🔑 Setup
 
 Create a `.env` file in the root directory:

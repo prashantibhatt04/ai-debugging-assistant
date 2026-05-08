@@ -1,5 +1,10 @@
 .env
+.env.test
 __pycache__/
+.pytest_cache/
 *.pyc
 venv/
 *.log
+test-reports/
+.DS_Store
+history.json
