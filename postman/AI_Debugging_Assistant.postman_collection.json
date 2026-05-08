@@ -1,0 +1,607 @@
+{
+  "info": {
+    "_postman_id": "cdcee9f3-d97c-4da7-8a6e-352c46e346ac",
+    "name": "AI Debugging Assistant - API Test Suite",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "28701526"
+  },
+  "item": [
+    {
+      "name": "Health and Connectivity",
+      "item": [
+        {
+          "name": "Home - Health Check",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response time is acceptable\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(2000);",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                ""
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Debug Endpoint",
+      "item": [
+        {
+          "name": "Debug Code - Valid Input",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response has language field\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData).to.have.property(\"language\");",
+                  "    pm.expect(jsonData.language).to.be.a(\"string\").and.not.empty;",
+                  "});",
+                  "",
+                  "pm.test(\"Response has primary_issue with all required fields\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData).to.have.property(\"primary_issue\");",
+                  "    pm.expect(jsonData.primary_issue).to.have.property(\"error_explanation\").that.is.a(\"string\").and.not.empty;",
+                  "    pm.expect(jsonData.primary_issue).to.have.property(\"root_cause\").that.is.a(\"string\").and.not.empty;",
+                  "    pm.expect(jsonData.primary_issue).to.have.property(\"fix\").that.is.a(\"string\").and.not.empty;",
+                  "    pm.expect(jsonData.primary_issue).to.have.property(\"severity\").that.is.a(\"string\").and.not.empty;",
+                  "});",
+                  "",
+                  "pm.test(\"Response has additional_issues as an array\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData).to.have.property(\"additional_issues\");",
+                  "    pm.expect(jsonData.additional_issues).to.be.an(\"array\");",
+                  "});",
+                  "",
+                  "pm.test(\"Each additional issue has all required fields\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    jsonData.additional_issues.forEach(function(issue) {",
+                  "        pm.expect(issue).to.have.property(\"issue\").that.is.a(\"string\");",
+                  "        pm.expect(issue).to.have.property(\"explanation\").that.is.a(\"string\");",
+                  "        pm.expect(issue).to.have.property(\"fix\").that.is.a(\"string\");",
+                  "        pm.expect(issue).to.have.property(\"severity\").that.is.a(\"string\");",
+                  "    });",
+                  "});",
+                  "",
+                  "pm.test(\"Response has confidence_score\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData).to.have.property(\"confidence_score\");",
+                  "    pm.expect(jsonData.confidence_score).to.be.a(\"string\").and.not.empty;",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"code\": \"const data = null; data.map(x => x + 1);\",\n  \"error\": \"TypeError: cannot read property 'map' of undefined\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/debug",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "debug"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Debug Code - Missing Required Fields (Negative Test)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Returns 422 for missing required fields\", function () {",
+                  "    pm.response.to.have.status(422);",
+                  "});",
+                  "",
+                  "pm.test(\"Response contains validation error detail\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData).to.have.property(\"detail\");",
+                  "    pm.expect(jsonData.detail).to.be.an(\"array\").and.not.empty;",
+                  "});",
+                  "",
+                  "pm.test(\"Error mentions missing fields\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    var fields = jsonData.detail.map(e => e.loc).flat();",
+                  "    pm.expect(fields).to.include(\"code\");",
+                  "    pm.expect(fields).to.include(\"error\");",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/debug",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "debug"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Debug Code - Empty String Values (Negative Test)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Returns 200 or 422 for empty strings\", function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 422]);",
+                  "});",
+                  "",
+                  "pm.test(\"Response is valid JSON\", function () {",
+                  "    pm.response.json();",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"code\": \"\",\n  \"error\": \"\"\n} "
+            },
+            "url": {
+              "raw": "{{baseUrl}}/debug",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "debug"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "New Request",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Returns 422 or 200 for whitespace-only input\", function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 422]);",
+                  "});",
+                  "",
+                  "pm.test(\"Response is valid JSON\", function () {",
+                  "    pm.response.json();",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"code\": \"   \",\n  \"error\": \"   \"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/debug",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "debug"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "History",
+      "item": [
+        {
+          "name": "Get History - Default Params",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response is an array\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData).to.be.an(\"array\");",
+                  "});",
+                  "",
+                  "pm.test(\"Each history item has required fields\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    jsonData.forEach(function(item) {",
+                  "        pm.expect(item).to.have.property(\"code\").that.is.a(\"string\");",
+                  "        pm.expect(item).to.have.property(\"error\").that.is.a(\"string\");",
+                  "        pm.expect(item).to.have.property(\"result\").that.is.an(\"object\");",
+                  "    });",
+                  "});",
+                  "",
+                  "pm.test(\"Returns 10 or fewer items by default\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.length).to.be.at.most(10);",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/history",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "history"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get History - With Limit and Offset",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Returns 2 or fewer items when limit=2\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.length).to.be.at.most(2);",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/history?limit=2&offset=0",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "history"
+              ],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "2"
+                },
+                {
+                  "key": "offset",
+                  "value": "0"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get History - Invalid Limit (Negative Test)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Returns 422 for limit exceeding maximum of 100\", function () {",
+                  "    pm.response.to.have.status(422);",
+                  "});",
+                  "",
+                  "pm.test(\"Response contains validation error detail\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData).to.have.property(\"detail\");",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/history?limit=999",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "history"
+              ],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "999"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Clear History - Without Confirm Flag",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Returns 400 when confirm flag is missing (safety guard)\", function () {",
+                  "    pm.response.to.have.status(400);",
+                  "});",
+                  "",
+                  "pm.test(\"Response is valid JSON\", function () {",
+                  "    pm.response.json();",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/history",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "history"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Clear History - With Confirm True",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response is valid JSON\", function () {",
+                  "    pm.response.json();",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/history?confirm=true",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "history"
+              ],
+              "query": [
+                {
+                  "key": "confirm",
+                  "value": "true"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Analytics and Insights",
+      "item": [
+        {
+          "name": "Get Analytics",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response time is under 2000ms\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(2000);",
+                  "});",
+                  "",
+                  "pm.test(\"Response is valid JSON\", function () {",
+                  "    pm.response.json();",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/analytics",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "analytics"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Insights",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response time is under 2000ms\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(10000);",
+                  "});",
+                  "",
+                  "pm.test(\"Response is valid JSON\", function () {",
+                  "    pm.response.json();",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/insights",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "insights"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": ""
+    }
+  ]
+}

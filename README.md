@@ -86,13 +86,21 @@
 
 ## 📡 API Endpoints
 
+### 🔹 GET /
+
+Health check — confirms the service is running
+
 ### 🔹 POST /debug
 
 Analyze code + error and return structured debugging insights
 
 ### 🔹 GET /history
 
-Retrieve past debugging results with pagination support
+Retrieve past debugging results with pagination support (`limit`, `offset`)
+
+### 🔹 DELETE /history
+
+Clear debugging history - requires `?confirm=true` as a safety guard against accidental deletion
 
 ### 🔹 GET /analytics
 
@@ -123,16 +131,19 @@ pip install -r requirements.txt
 uvicorn main:app --reload
 ```
 
-Then open:
-
-http://127.0.0.1:8000/docs
+Then open: http://127.0.0.1:8000/docs
 
 ---
 
 ## 🧪 Test Suite
 
-Automated API test suite built with Pytest and HTTPX, covering all endpoints 
-with OpenAI responses mocked for fast, cost-free test runs.
+This project includes two layers of API testing - automated code-based tests with Pytest, and a no-code Postman collection - covering all endpoints with positive, negative, and edge case scenarios.
+
+---
+
+### ✅ Automated Tests (Pytest + HTTPX)
+
+Automated API test suite built with Pytest and HTTPX, covering all endpoints with OpenAI responses mocked for fast, cost-free test runs.
 
 **Run the tests:**
 
@@ -146,6 +157,38 @@ pytest tests/ -v
 ![Pytest terminal results](docs/screenshots/pytest-terminal-results.png)
 
 ![HTML test report](docs/screenshots/pytest-html-report.png)
+
+---
+
+### 📬 Manual & Exploratory Tests (Postman)
+
+A Postman collection covering all 6 endpoints with 11 requests and 31 test assertions.
+
+**Import the collection:**
+
+1. Open Postman
+2. Click **Import**
+3. Select `postman/AI_Debugging_Assistant.postman_collection.json`
+4. Set the `baseUrl` collection variable to `http://localhost:8000`
+5. Click **Run collection** to execute all tests
+
+**What's covered:**
+
+| Folder | Requests | What's tested |
+|---|---|---|
+| Health & Connectivity | 1 | App is live, response time |
+| Debug Endpoint | 3 | Valid input, missing fields, empty strings |
+| History | 4 | Pagination, limit validation, delete safety guard |
+| Analytics & Insights | 2 | Response structure, AI endpoint tolerance |
+
+**Key findings from test run:**
+
+- `DELETE /history` without confirm flag correctly returned 400 - the app has a built-in safety guard against accidental data deletion
+- `GET /insights` exceeded the initial 2000ms threshold - expected behaviour for an AI-powered endpoint making external API calls; threshold adjusted to 10000ms
+
+**Test run results:**
+
+![Postman collection run results](docs/screenshots/postman-collection-results.png)
 
 ---
 
@@ -170,4 +213,4 @@ OPENAI_API_KEY=your_api_key_here
 
 ## 👩‍💻 Author
 
-Built as part of a transition into AI-focused backend engineering, combining real-world debugging experience with modern AI capabilities.
+Built as part of a transition into QA and AI-focused backend engineering, combining real-world debugging experience with modern AI capabilities and test automation practices.
